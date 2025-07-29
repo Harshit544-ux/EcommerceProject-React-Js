@@ -5,7 +5,7 @@ import Title from '../component/Title';
 import ProductItem from '../component/ProductItem';
 
 function Collection() {
-  const { products } = useContext(ShopContext)
+  const { products ,search} = useContext(ShopContext)
   const [showFilter, setShowFilter] = useState(true);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState([]);
@@ -32,9 +32,17 @@ function Collection() {
     );
   };
 
-  // Filter products whenever selection changes
+  // Filter products whenever selection or search changes
   useEffect(() => {
     let filtered = products;
+
+    // Apply search filter
+    if (search) {
+      filtered = filtered.filter(item => 
+        item.name.toLowerCase().includes(search.toLowerCase()) ||
+        item.description.toLowerCase().includes(search.toLowerCase())
+      );
+    }
 
     // Apply category and subcategory filters
     if (selectedCategories.length > 0) {
@@ -52,7 +60,7 @@ function Collection() {
     }
 
     setFilterProducts(filtered);
-  }, [products, selectedCategories, selectedSubCategories, sortType]);
+  }, [products, selectedCategories, selectedSubCategories, sortType, search]); // Added search to dependencies
 
   return (
     <div className='flex flex-col sm:flex-row gap-1  sm:gap-10 pt-10 border-t mx-6 sm:mx-10 lg:mx-12'>

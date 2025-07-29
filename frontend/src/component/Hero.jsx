@@ -3,7 +3,7 @@ import { assets } from "../assets/assets"
 function Hero() {
 
   return (
-    <div className="flex flex-col sm:flex-row border border-gray-400 min-h-[400px] sm:min-h-[500px] mx-4 sm:mx-6 lg:mx-12">
+    <div className="flex flex-col sm:flex-row border border-gray-400 min-h-[400px] sm:min-h-[500px] mx-6 sm:mx-6 lg:mx-12">
 
       {/* Hero left side */}
       <div className="w-full sm:w-1/2 p-4 flex items-center justify-center">
