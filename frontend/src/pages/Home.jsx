@@ -15,7 +15,7 @@ function Home() {
       <BestSeller />
       <OurPolicy />
       <NewsLetterBox />
-      <Footer />
+     
     </div>
   )
 }

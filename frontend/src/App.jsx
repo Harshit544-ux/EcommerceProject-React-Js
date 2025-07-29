@@ -7,6 +7,8 @@ import Cart from './pages/Cart'
 import Login from './pages/Login'
 import PlaceOrder from './pages/PlaceOrder'
 import Navbar from './component/Navbar'
+import Collection from './pages/Collection'
+import Footer from './component/Footer'
 
 // set up the routes for the application
 function App() {
@@ -19,6 +21,7 @@ function App() {
         {/* Define the routes for the application */}
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/collection" element={<Collection />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/product/:id" element={<Product />} />
@@ -26,7 +29,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path='/placeorder' element={<PlaceOrder />} />
         </Routes>
+       
       </div>
+      <Footer />
     </>
   )
 }
