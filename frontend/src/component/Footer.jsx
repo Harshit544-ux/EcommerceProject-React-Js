@@ -4,7 +4,7 @@ function Footer() {
   return (
     <div className='px-6 sm:px-10'>
       <div className='flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm'>
-        <div className='ml-6 '>
+        <div className='ml-2 '>
           <img src={assets.logo} alt='logo' className='mb-5 w-32 ' />
           <p className='w-full md:w-2/3 text-gray-600'>
             We are committed to providing high-quality products and excellent customer service. 
