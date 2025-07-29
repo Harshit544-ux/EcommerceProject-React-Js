@@ -9,6 +9,7 @@ import PlaceOrder from './pages/PlaceOrder'
 import Navbar from './component/Navbar'
 import Collection from './pages/Collection'
 import Footer from './component/Footer'
+import SearchBar from './component/SearchBar'
 
 // set up the routes for the application
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <div>                 
         {/* Navbar */}
         <Navbar />
+        <SearchBar />
 
         {/* Define the routes for the application */}
         <Routes>
