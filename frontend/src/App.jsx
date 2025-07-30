@@ -11,6 +11,7 @@ import Collection from './pages/Collection'
 import Footer from './component/Footer'
 import SearchBar from './component/SearchBar'
 import { ToastContainer, toast } from 'react-toastify';
+import Order from './pages/Order'
 
 // set up the routes for the application
 function App() {
@@ -32,6 +33,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
           <Route path='/placeorder' element={<PlaceOrder />} />
+          <Route path='/orders' element={<Order/>}/>
         </Routes>
        
       </div>
