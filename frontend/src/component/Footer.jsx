@@ -25,9 +25,10 @@ function Footer() {
         <div>
           <p className='text-xl font-medium mb-5'>GET IN TOUCH</p>
           <ul className='flex flex-col gap-1 text-gray-600'>
+            <li>Made by : Harshit Srivastava</li>
             <li>+91 7800022658</li>
             <li>harshitsri08@gmail.com</li>
-            <li>Hyderabad</li>
+            <li>Hyderabad , India</li>
           </ul>
         </div>
       </div>
