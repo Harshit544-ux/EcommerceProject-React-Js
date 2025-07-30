@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ShopContext } from '../context/ShopContext';
 import { assets } from '../assets/assets';
+import RelatedProduct from '../component/RelatedProduct';
 
 function Product() {
   const { products, currency } = useContext(ShopContext);
@@ -90,26 +91,30 @@ function Product() {
 
         </div>
 
-     
 
 
+
+
+      </div>
+
+      {/* --------Description & Review Section----------- */}
+      <div className='mt-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
+        <div className='flex'>
+          <b className='border px-5 py-3 text-sm'>Description</b>
+          <p className='border px-5 py-3 text-sm'>Reviews (122)</p>
+        </div>
+        <div className='flex flex-col gap-4 mt-5 border px-6 py-3 text-sm text-gray-600'>
+          <p>An ecommerce product page typically includes a description, images, pricing, and reviews.Clear product titles, high-quality images, and concise bullet points help shoppers quickly understand the product's features and benefits</p>
+          <p>Ecommerce product pages are designed to provide customers with all the information they need to make a purchase decision.
+
+            Many modern ecommerce pages also include related products, promotional offers, and a streamlined "Add to Cart" experience for seamless navigation.</p>
 
         </div>
-
-     {/* --------Description & Review Section----------- */}
-        <div className='mt-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
-          <div className='flex'>
-            <b className='border px-5 py-3 text-sm'>Description</b>
-            <p className='border px-5 py-3 text-sm'>Reviews (122)</p>
-          </div>
-          <div className='flex flex-col gap-4 mt-5 border px-6 py-3 text-sm text-gray-600'>
-        <p>An ecommerce product page typically includes a description, images, pricing, and reviews.Clear product titles, high-quality images, and concise bullet points help shoppers quickly understand the product's features and benefits</p>
-<p>Ecommerce product pages are designed to provide customers with all the information they need to make a purchase decision.
-
-Many modern ecommerce pages also include related products, promotional offers, and a streamlined "Add to Cart" experience for seamless navigation.</p>
-
-          </div>
       </div>
+
+       {/* ----------Display Related Products------------- */}
+       <RelatedProduct category={productData.category} subCategory={productData.subCategory} />
+
     </div>
   );
 }
