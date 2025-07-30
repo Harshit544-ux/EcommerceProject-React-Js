@@ -32,7 +32,7 @@ function Navbar() {
                <img onClick={() => setShowSearch(true)} src={assets.search_icon} alt="search" className='w-5 cursor-pointer' />
 
                 <div className="relative group">
-                    <img src={assets.profile_icon} alt="profile" className="w-5 cursor-pointer" />
+                   <Link to={'/login'}><img src={assets.profile_icon} alt="profile" className="w-5 cursor-pointer" /></Link> 
                     
                     <div className="hidden group-hover:block absolute right-0 pt-4 bg-slate-100  rounded-md shadow-lg z-10">
                         <div className="flex flex-col gap-2 px-4 py-2 w-36 text-gray-500 rounded">

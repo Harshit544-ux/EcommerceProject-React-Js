@@ -26,12 +26,12 @@ function App() {
         {/* Define the routes for the application */}
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/collection" element={<Collection />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/product/:id" element={<Product />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/login" element={<Login />} />
           <Route path='/placeorder' element={<PlaceOrder />} />
           <Route path='/orders' element={<Order/>}/>
         </Routes>
