@@ -38,6 +38,46 @@ const ShopContextProvider = (props) => {
      }
 
 
+      const updateQuantity = (itemId, size, quantity) => {
+      
+          let cartData = structuredClone(cartItems);
+          cartData[itemId][size] = quantity;
+          setCartItems(cartData); 
+
+      }
+
+         const removeFromCart = (itemId, size) => {
+        setCartItems(prev => {
+            const newCart = { ...prev };
+            if (newCart[itemId] && newCart[itemId][size]) {
+                delete newCart[itemId][size];
+                // Remove the item entirely if no sizes left
+                if (Object.keys(newCart[itemId]).length === 0) {
+                    delete newCart[itemId];
+                }
+            }
+            return newCart;
+        });
+    };
+
+    const getCartAmount = () => {
+    let total = 0;
+
+    for (const itemId in cartItems) {
+        const product = products.find(p => p._id === itemId);
+        if (!product) continue;
+
+        for (const size in cartItems[itemId]) {
+            const quantity = cartItems[itemId][size];
+            total += product.price * quantity;
+        }
+    }
+
+    return total;
+};
+
+
+
     const contextValue = {
         products, 
         currency, 
@@ -48,7 +88,10 @@ const ShopContextProvider = (props) => {
         setShowSearch,
         addToCart,  
         cartItems ,
-        getCartCount
+        getCartCount,
+        updateQuantity,
+        removeFromCart,
+        getCartAmount
     };
 
     return (
