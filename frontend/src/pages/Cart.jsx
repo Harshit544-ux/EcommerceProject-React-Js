@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { ShopContext } from '../context/ShopContext';
 import Title from '../component/Title';
 import { assets } from '../assets/assets';
+import { Link } from 'react-router-dom';
 
 function Cart() {
   const { products, cartItems, currency, updateQuantity, removeFromCart,getCartAmount } = useContext(ShopContext);
@@ -72,9 +73,9 @@ function Cart() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8">
+        <div className="text-base sm:text-2xl mb-6">
           <Title text1={'YOUR'} text2={'CART'} />
-          <p className="text-gray-500 mt-2">
+          <p className="text-gray-500 mt-1 text-sm ml-2">
             {totalItems} {totalItems === 1 ? 'item' : 'items'} in your cart
           </p>
         </div>
@@ -207,12 +208,12 @@ function Cart() {
                 </div>
 
                 <div className="space-y-3">
+                  <Link to='/placeorder'>
                   <button className="w-full bg-black text-white py-3 rounded-md hover:bg-gray-800 transition font-medium">
                     Proceed to Checkout
                   </button>
-                  <button className="w-full border border-gray-300 text-gray-700 py-3 rounded-md hover:bg-gray-50 transition">
-                    Continue Shopping
-                  </button>
+                  </Link>
+               
                 </div>
               </div>
             </div>
