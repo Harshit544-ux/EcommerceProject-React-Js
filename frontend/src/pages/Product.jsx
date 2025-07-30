@@ -3,21 +3,32 @@ import { useParams } from 'react-router-dom';
 import { ShopContext } from '../context/ShopContext';
 import { assets } from '../assets/assets';
 import RelatedProduct from '../component/RelatedProduct';
+import { toast } from 'react-toastify';
 
 function Product() {
-  const { products, currency } = useContext(ShopContext);
+  const { products, currency, addToCart } = useContext(ShopContext);
   const { id } = useParams();
   const [productData, setProductData] = useState(null);
   const [image, setImage] = useState('');
-  const [sizes, setSizes] = useState([]);
+  const [selectedSize, setSelectedSize] = useState(''); // Changed from sizes to selectedSize
 
   useEffect(() => {
     const product = products.find(item => item._id === id);
     if (product) {
       setProductData(product);
       setImage(product.image[0]);
+      setSelectedSize(''); // Reset size when product changes
     }
   }, [id, products]);
+
+  // Add size to cart
+  const handleAddToCart = () => {
+    if (!selectedSize) {
+      toast.error('Please select a size');
+      return;
+    }
+    addToCart(id, selectedSize);
+  };
 
   if (!productData) {
     return <div className='opacity-0'>Loading...</div>;
@@ -70,14 +81,21 @@ function Product() {
             <p>Select Size</p>
             <div className='flex gap-2'>
               {productData.sizes.map((size, index) => (
-                <button onClick={() => setSizes(size)} key={index} className={`border py-2  px-4 bg-gray-100 ${sizes === size ? 'border-black' : ''}`}>
+                <button 
+                  onClick={() => setSelectedSize(size)} 
+                  key={index} 
+                  className={`border py-2 px-4 bg-gray-100 ${
+                    selectedSize === size ? 'border-black' : ''
+                  }`}
+                >
                   {size}
                 </button>
               ))}
             </div>
 
           </div>
-          <button
+          <button 
+            onClick={handleAddToCart}
             className='bg-black text-white py-3 px-8 text-sm active:bg-gray-700 cursor-pointer w-fit rounded'
           >
             ADD TO CART

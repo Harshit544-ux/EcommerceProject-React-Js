@@ -10,12 +10,14 @@ import Navbar from './component/Navbar'
 import Collection from './pages/Collection'
 import Footer from './component/Footer'
 import SearchBar from './component/SearchBar'
+import { ToastContainer, toast } from 'react-toastify';
 
 // set up the routes for the application
 function App() {
   return (
     <>
-      <div>                 
+      <div>  
+        <ToastContainer />
         {/* Navbar */}
         <Navbar />
         <SearchBar />
