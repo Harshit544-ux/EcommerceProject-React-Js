@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { ShopContext } from '../context/ShopContext'
 import { assets } from '../assets/assets';
 import Title from '../component/Title';
@@ -139,9 +139,7 @@ function Collection() {
           </div>
         </div>
 
-    
-
-
+  
         </div>
             {/* {Right side} */}
         <div className='flex-1'>
