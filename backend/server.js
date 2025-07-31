@@ -16,13 +16,15 @@ app.get('/', (req, res) => {
   res.send("API is working");
 });
 
-app.get('/test-supabase', async (req, res) => {
-  const { data, error } = await supabase.from('pg_tables').select('tablename').eq('schemaname', 'public');
-  if (error) {
-    res.status(500).json({ error: error.message });
-  } else {
-    res.status(200).json({ tables: data });
-  }
+
+app.get('/api/products', async (req, res) => {
+    const { data, error } = await supabase.from('Forever_Ecommerce').select('*');
+    console.log("data",data)
+    if (error) {
+        res.status(500).json({ error: error.message });
+    } else {
+        res.status(200).json(data);
+    }
 });
 
 // Start server
