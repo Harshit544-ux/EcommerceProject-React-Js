@@ -7,6 +7,7 @@ import useRouter from "./routes/userRoutes.js";
 
 // App Config
 const app = express();
+app.use(express.json());
 const port = process.env.PORT || 4000;
 connectCloudinary();
 
