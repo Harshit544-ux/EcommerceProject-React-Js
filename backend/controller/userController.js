@@ -3,7 +3,7 @@ import {
   loginUserService
 } from '../services/userServices.js';
 import { generateToken } from '../utils/jwt.js';
-
+import jwt from 'jsonwebtoken';
 
 
 
@@ -55,11 +55,21 @@ export const loginUser = async (req, res) => {
   }
 };
 
-// export const getUserProfile = async (req, res) => {
-//   const token = req.headers.authorization?.split(' ')[1];
-//   if (!token) return res.status(401).json({ error: 'Unauthorized' });
 
-//   const { data, error } = await getUser(token);
-//   if (error) return res.status(401).json({ error: error.message });
-//   res.json(data);
-// };
+
+export const adminLogin = (req, res) => {
+  const { email, password } = req.body;
+
+  if (
+    email === process.env.ADMIN_EMAIL &&
+    password === process.env.ADMIN_PASSWORD
+  ) {
+    const token = jwt.sign({ email, role: 'admin' }, process.env.JWT_SECRET, {
+      expiresIn: '1d',
+    });
+
+    return res.json({ success: true, token });
+  } else {
+    return res.status(401).json({ error: 'Invalid email or password' });
+  }
+};
