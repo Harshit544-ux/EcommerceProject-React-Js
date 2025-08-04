@@ -7,8 +7,9 @@ import useRouter from "./routes/userRoutes.js";
 
 // App Config
 const app = express();
-app.use(express.json());
 const port = process.env.PORT || 4000;
+
+// Initialize Cloudinary
 connectCloudinary();
 
 // Middleware
@@ -16,8 +17,8 @@ app.use(express.json());
 app.use(cors());
 
 // Routes
-app.use('/',useRouter);
-app.use('/products',productRoutes);
+app.use('/', useRouter);
+app.use('/products', productRoutes);
 
 // Start server
 app.listen(port, () => {
