@@ -1,5 +1,6 @@
 import {v2 as cloudinary } from 'cloudinary'
 
+// 1. Connect Cloudinary
 const connectCloudinary = ()=>{
     cloudinary.config({
         cloud_name:process.env.CLOUD_NAME,
@@ -8,6 +9,7 @@ const connectCloudinary = ()=>{
     })
 }
 
+// 2. Upload to Cloudinary
 export const uploadToCloudinary = (buffer, filename) => {
   return new Promise((resolve, reject) => {
     cloudinary.uploader.upload_stream(
