@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { backendUrl } from '../App';
+ 
 
 
 
@@ -7,6 +9,7 @@ function Login({setToken}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,6 +28,7 @@ function Login({setToken}) {
           // ✅ Store token and update parent state
     localStorage.setItem('admin-token', data.token);
     setToken(data.token);
+    navigate('/add');
 
       if (!res.ok) {
         throw new Error(data.message || 'Login failed');

@@ -25,6 +25,7 @@ export default function App() {
               <Sidebar />
               <div className="w-[70%] mx-auto ml-[max(5vw,25px)] my-8 text-gray-800 text-base">
                 <Routes>
+                   
                   <Route path='/add' element={<Add setToken={setToken} />} />
                   <Route path='/list' element={<List setToken={setToken} />} />
                   <Route path='/orders' element={<Order setToken={setToken} />} />

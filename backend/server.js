@@ -13,7 +13,8 @@ const port = process.env.PORT || 4000;
 connectCloudinary();
 
 // Middleware
-app.use(express.json());
+app.use(express.json({ limit: '10mb' })); // Increase limit as needed
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cors());
 
 // Routes
