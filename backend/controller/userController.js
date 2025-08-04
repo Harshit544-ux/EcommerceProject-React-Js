@@ -1,7 +1,10 @@
 import {
   createUser,
+  loginUserService
 } from '../services/userServices.js';
 import { generateToken } from '../utils/jwt.js';
+
+
 
 
 
@@ -30,12 +33,27 @@ export const registerUser = async (req, res) => {
   }
 };
 
+export const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
 
-// export const loginUser = async (req, res) => {
-//   const { data, error } = await loginUserService(req.body);
-//   if (error) return res.status(401).json({ error: error.message });
-//   res.json(data);
-// };
+    if (!email || !password) {
+      return res.status(400).json({ success: false, message: 'Email and password required' });
+    }
+
+    const user = await loginUserService(email, password);
+    if (!user) {
+      return res.status(401).json({ success: false, message: 'Invalid credentials' });
+    }
+
+    const token = generateToken(user.id);
+
+    return res.status(200).json({ success: true, token, user });
+  } catch (error) {
+    console.error('Login error:', error);
+    return res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
 
 // export const getUserProfile = async (req, res) => {
 //   const token = req.headers.authorization?.split(' ')[1];
