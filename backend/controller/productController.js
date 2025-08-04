@@ -101,8 +101,11 @@ export const removeProduct = async (req, res) => {
 
 // ✅ GET /products/:id - Get single product by ID
 export const singleProduct = async (req, res) => {
-    const { id } = req.params;
-    const { data, error } = await getProductById(id);
-    if (error) return res.status(404).json({ error: "Product not found" });
-    res.json(data);
+  const { id } = req.body; // 👈 Get id from body
+  if (!id) return res.status(400).json({ error: 'ID is required' });
+
+  const { data, error } = await getProductById(id);
+  if (error) return res.status(404).json({ error: "Product not found" });
+  res.json(data);
 };
+
