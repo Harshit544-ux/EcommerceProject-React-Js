@@ -32,9 +32,9 @@ function ProductItem({ id, name, price, image }) {
 
   return (
     <Link className='text-gray-700 cursor-pointer' to={`/product/${id}`}>
-      <div className='overflow-hidden'>
+      <div className='w-full aspect-square overflow-hidden flex justify-center items-center'>
         <img
-          className='hover:scale-110 transition ease-in-out'
+          className='w-full h-full object-cover hover:scale-110 transition duration-300 ease-in-out'
           src={displayImage}
           alt={name}
         />
