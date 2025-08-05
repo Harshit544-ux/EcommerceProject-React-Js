@@ -13,10 +13,10 @@ function Product() {
   const [selectedSize, setSelectedSize] = useState(''); // Changed from sizes to selectedSize
 
   useEffect(() => {
-    const product = products.find(item => item._id === id);
+    const product = products.find(item => item.id === id);
     if (product) {
       setProductData(product);
-      setImage(product.image[0]);
+      setImage(product.images[0]);
       setSelectedSize(''); // Reset size when product changes
     }
   }, [id, products]);
@@ -42,7 +42,7 @@ function Product() {
         <div className='flex-1 flex flex-col-reverse gap-3 sm:flex-row'>
           {/* Thumbnail Images */}
           <div className='flex sm:flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal sm:w-[18.7%] w-full'>
-            {productData.image.map((img, index) => (
+            {productData.images.map((img, index) => (
               <img
                 key={index}
                 src={img}

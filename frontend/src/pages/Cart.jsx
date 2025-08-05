@@ -20,7 +20,7 @@ function Cart() {
     // Loop through cart items
     for (const itemId in cartItems) {
       // Find product details from products array
-      const product = products.find(p => p._id === itemId);
+      const product = products.find(p => p.id === itemId);
       if (product) {
         // Loop through sizes for this item
         for (const size in cartItems[itemId]) {
@@ -30,7 +30,7 @@ function Cart() {
               id: itemId,
               name: product.name,
               price: product.price,
-              image: Array.isArray(product.image) ? product.image[0] : product.image,
+              image: Array.isArray(product.images) ? product.images[0] : product.image,
               size: size,
               quantity: quantity,
             });
