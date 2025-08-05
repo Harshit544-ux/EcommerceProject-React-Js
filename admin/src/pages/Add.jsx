@@ -64,6 +64,7 @@ function Add({token}) {
 
       if (response.ok) {
         alert("Product added successfully");
+        
         // Reset form
         setProductName('');
         setDescription('');

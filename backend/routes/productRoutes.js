@@ -10,7 +10,7 @@ import adminAuth from '../middleware/adminauth.js';
 
 const router = express.Router();
 
-router.get('/',  adminAuth  ,getProducts);
+router.get('/' ,getProducts);
 router.post(
   "/add", adminAuth,
   upload.fields([
@@ -23,6 +23,6 @@ router.post(
 );
 
 router.post("/:id",singleProduct);
-router.delete("/:id", removeProduct);
+router.delete("/:id",adminAuth, removeProduct);
 
 export default router;
