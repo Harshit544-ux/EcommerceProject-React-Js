@@ -53,7 +53,6 @@ export const loginUser = async (req, res) => {
 };
 
 
-
 export const adminLogin = (req, res) => {
   const { email, password } = req.body;
 

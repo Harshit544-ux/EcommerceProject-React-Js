@@ -1,5 +1,6 @@
 import supabase from "../config/supabase.js";
 
+// Get all products
 export const getAllProduct = async () => {
   const { data, error } = await supabase.from('products').select('*');
   return { data, error };

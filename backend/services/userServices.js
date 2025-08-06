@@ -50,7 +50,6 @@ console.log("data",data)
   return data;
 };
 
-
 export const loginUserService = async (email, password) => {
   const { data: user, error } = await supabase
     .from('users')

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { assets } from "../assets/admin_assets/assets";
 
-function Add({token}) {
+function Add() {
   const [images, setImages] = useState([null, null, null, null]); // for preview
   const [imageFiles, setImageFiles] = useState([null, null, null, null]); // for upload
   const [productName, setProductName] = useState('');
@@ -39,14 +39,14 @@ function Add({token}) {
       formData.append("description", description);
       formData.append("price", price);
       formData.append("category", category);
-      formData.append("subCategory", subcategory); // Changed from subcategory to subCategory
+      formData.append("subCategory", subcategory);
       formData.append("sizes", JSON.stringify(sizes));
       formData.append("bestseller", isBestseller);
 
       // Fix: Append images with correct field names
       imageFiles.forEach((file, index) => {
         if (file) {
-          formData.append(`image${index + 1}`, file); // Changed from "images" to "image1", "image2", etc.
+          formData.append(`image${index + 1}`, file); 
         }
       });
 
@@ -220,6 +220,3 @@ function Add({token}) {
 }
 
 export default Add;
-
-
-
