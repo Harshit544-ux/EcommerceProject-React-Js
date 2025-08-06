@@ -1,10 +1,19 @@
 import { useContext, useState } from 'react';
 import { assets } from '../assets/assets.js'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { ShopContext } from '../context/ShopContext.jsx';
 
+
 function Navbar() {
+    const navigate=useNavigate();
     const {setShowSearch,getCartCount} = useContext(ShopContext);
+     const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+        const handleLogout = () => {
+        localStorage.removeItem("token");
+        setIsLoggedIn(false);
+        navigate('/');
+    };
+
     return (
         <div className='flex justify-between items-center py-4 font-medium px-6 '>
            <Link to='/'><img src={assets.logo} alt="logo" className='w-36' /></Link>
@@ -38,7 +47,7 @@ function Navbar() {
                         <div className="flex flex-col gap-2 px-4 py-2 w-36 text-gray-500 rounded">
                             <p className="hover:text-black cursor-pointer">My Profile</p>
                             <p className="hover:text-black cursor-pointer">Orders</p>
-                            <p className="hover:text-black cursor-pointer">Logout</p>
+                            <p className="hover:text-black cursor-pointer" onClick={handleLogout}>Logout</p>
                         </div>
                     </div>
 

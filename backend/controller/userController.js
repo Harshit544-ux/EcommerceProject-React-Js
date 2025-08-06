@@ -5,9 +5,6 @@ import {
 import { generateToken } from '../utils/jwt.js';
 import jwt from 'jsonwebtoken';
 
-
-
-
 export const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;

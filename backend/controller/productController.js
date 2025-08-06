@@ -1,5 +1,4 @@
 import { v2 as cloudinary } from 'cloudinary';
-import connectCloudinary, { uploadToCloudinary } from '../config/cloudinary.js'; // adjust the path as needed
 
 import { getAllProduct, createProduct, deleteProductById, getProductById } from "../services/productService.js"
 
@@ -91,7 +90,7 @@ export const addProduct = async (req, res) => {
   }
 };
 
-// ✅ DELETE /products/:id - Remove product by ID
+//  DELETE /products/:id - Remove product by ID
 export const removeProduct = async (req, res) => {
     const { id } = req.params;
     const { data, error } = await deleteProductById(id);
@@ -99,7 +98,7 @@ export const removeProduct = async (req, res) => {
     res.json({ success: true, message: "Product removed", data });
 };
 
-// ✅ GET /products/:id - Get single product by ID
+//  GET /products/:id - Get single product by ID
 export const singleProduct = async (req, res) => {
   const { id } = req.body; // 👈 Get id from body
   if (!id) return res.status(400).json({ error: 'ID is required' });

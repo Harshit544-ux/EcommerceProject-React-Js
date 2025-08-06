@@ -17,7 +17,7 @@ export const createUser = async ({ name, email, password }) => {
 
   const user = data.user;
 
-  // 🔐 Step 2: Hash the password (for custom table only)
+  // Step 2: Hash the password (for custom table only)
   const hashedPassword = await bcrypt.hash(password, 10); // 10 salt rounds
 
   // Step 3: Insert into custom users table
@@ -43,7 +43,6 @@ export const getUser = async (email) => {
     .from('users')
     .select('*')
   
-
   if (error && error.code !== 'PGRST116') {
     throw new Error(error.message);
   }
