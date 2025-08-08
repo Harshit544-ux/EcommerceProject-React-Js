@@ -24,9 +24,9 @@ function Contact() {
         {/* Contact Info */}
         <div className='flex flex-col justify-center items-start gap-4 text-sm sm:text-base text-gray-600 md:w-1/2'>
           <p className='font-semibold text-xl text-gray-600'>Our Store</p>
-          <p className='text-gray-500'> 123 Main Street, Sector 21, New Delhi, India - 110001</p>
-          <p className='text-gray-500'> Phone: +91 98765 43210</p>
-          <p className='text-gray-500'> Email: support@foreverstore.com</p>
+          <p className='text-gray-500'> Hitech City , Hyderabad , India - 110001</p>
+          <p className='text-gray-500'> Phone: +91 7800033658</p>
+          <p className='text-gray-500'> Email: harshitsri08@gmail.com</p>
           <p className='text-gray-500'> Working Hours: Mon - Sat: 9:00 AM - 8:00 PM</p>
           <p>
             Have questions? Need help with your order? Reach out to us anytime — we’re here to support you!

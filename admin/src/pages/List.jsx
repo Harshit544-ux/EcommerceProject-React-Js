@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import { backendUrl } from '../App';
 
 function List() {
   const [list, setList] = useState([]);
@@ -8,7 +9,7 @@ function List() {
 
   const fetchList = async () => {
     try {
-      const response = await fetch('http://localhost:4000/products');
+      const response = await fetch(`${backendUrl}/products`);
       if (!response.ok) throw new Error('Failed to fetch products');
       const data = await response.json();
       setList(data);
@@ -22,13 +23,13 @@ function List() {
   const handleDelete = async (id) => {
     const confirm = window.confirm('Are you sure you want to delete this product?');
     if (!confirm) return;
-    
-      const token = localStorage.getItem('admin-token'); 
+
+    const token = localStorage.getItem('admin-token');
 
     try {
-      const res = await fetch(`http://localhost:4000/products/${id}`, {
+      const res = await fetch(`${backendUrl}/products/${id}`, {
         method: 'DELETE',
-          headers: {
+        headers: {
           Authorization: `Bearer ${token}`,
         },
       });

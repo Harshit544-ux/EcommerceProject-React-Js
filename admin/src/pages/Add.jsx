@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { assets } from "../assets/admin_assets/assets";
+import { backendUrl } from '../App';
 
 function Add() {
   const [images, setImages] = useState([null, null, null, null]); // for preview
@@ -46,15 +47,15 @@ function Add() {
       // Fix: Append images with correct field names
       imageFiles.forEach((file, index) => {
         if (file) {
-          formData.append(`image${index + 1}`, file); 
+          formData.append(`image${index + 1}`, file);
         }
       });
 
-      const token = localStorage.getItem('admin-token'); 
+      const token = localStorage.getItem('admin-token');
 
-      const response = await fetch("http://localhost:4000/products/add", {
+      const response = await fetch(`${backendUrl}/products/add`, {
         method: "POST",
-         headers: {
+        headers: {
           Authorization: `Bearer ${token}`,
         },
         body: formData,
@@ -64,7 +65,7 @@ function Add() {
 
       if (response.ok) {
         alert("Product added successfully");
-        
+
         // Reset form
         setProductName('');
         setDescription('');
@@ -185,11 +186,10 @@ function Add() {
               type="button"
               key={size}
               onClick={() => handleSizeToggle(size)}
-              className={`px-4 py-1 rounded-full border text-sm ${
-                sizes.includes(size)
-                  ? "bg-black text-white"
-                  : "bg-gray-100 text-gray-700"
-              }`}
+              className={`px-4 py-1 rounded-full border text-sm ${sizes.includes(size)
+                ? "bg-black text-white"
+                : "bg-gray-100 text-gray-700"
+                }`}
             >
               {size}
             </button>
