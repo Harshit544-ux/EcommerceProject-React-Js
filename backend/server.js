@@ -4,6 +4,8 @@ import 'dotenv/config'
 import connectCloudinary from "./config/cloudinary.js";
 import productRoutes from "./routes/productRoutes.js";
 import useRouter from "./routes/userRoutes.js";
+import { cartRoutes } from "./routes/cartRoute.js";
+import { errorHandler } from './middleware/errorHandler.js';
 
 // App Config
 const app = express();
@@ -20,6 +22,10 @@ app.use(cors());
 // Routes
 app.use('/', useRouter);
 app.use('/products', productRoutes);
+app.use('/cart',cartRoutes);
+
+// Error handling middleware (add this before app.listen)
+app.use(errorHandler);
 
 // Start server
 app.listen(port, () => {
