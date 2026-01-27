@@ -5,6 +5,7 @@ import ProductItem from './ProductItem';
 
 function LatestCollection() {
     const { products } = useContext(ShopContext)
+    console.log(products);
     const [latestProducts,setLatestProducts]=useState([]);
 
     useEffect(()=>{
@@ -20,7 +21,7 @@ function LatestCollection() {
          {/* {Rendering product} */}
       <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6 mt-4 px-10 py-6'>
         {latestProducts.map((item,index) => (
-          <ProductItem key={index} id={item.id} name={item.name} price={item.price} image={item.images} />
+          <ProductItem key={index} id={item.id} name={item.name} price={item.price} image={item.images?.[0]} />
         ))}
       </div>
     </div>
