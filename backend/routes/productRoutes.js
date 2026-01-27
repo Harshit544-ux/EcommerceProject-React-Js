@@ -15,6 +15,7 @@ import adminAuth from '../middleware/adminauth.js';
 
 const router = express.Router();
 
+
 // Public routes
 router.get('/', getProducts);
 router.get('/bestsellers', getBestsellers);

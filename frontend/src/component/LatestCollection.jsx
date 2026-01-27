@@ -25,6 +25,8 @@ function LatestCollection() {
         ))}
       </div>
     </div>
+
+    
   )
 } 
 

@@ -13,6 +13,7 @@ export const createProduct = async (productData) => {
   return { data, error };
 };
 
+
 //  Delete a product by ID
 export const deleteProductById = async (id) => {
   const { data, error } = await supabase.from('products').delete().eq('id', id).select().single();

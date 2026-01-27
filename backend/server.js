@@ -11,6 +11,7 @@ import { errorHandler } from './middleware/errorHandler.js';
 const app = express();
 const port = process.env.PORT || 4000;
 
+
 // Initialize Cloudinary
 connectCloudinary();
 

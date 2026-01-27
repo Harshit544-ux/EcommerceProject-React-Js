@@ -12,6 +12,7 @@ export const getUserCartService = async (userId) => {
       .select("cart_data")
       .eq("user_id", userId)
       .maybeSingle();
+      
 
     if (error) throw error;
     return { data, error: null };

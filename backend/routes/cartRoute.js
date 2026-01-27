@@ -4,6 +4,7 @@ import { authUser } from '../middleware/auth.js';
 
 export const cartRoutes=express.Router();
 
+
 //define the cart routes
 cartRoutes.post('/get', authUser,getUserCart);
 cartRoutes.post('/add',authUser,addToCart);

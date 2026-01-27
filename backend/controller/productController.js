@@ -8,6 +8,7 @@ export const getProducts = async (req, res) => {
     res.json(data);
 };
 
+
 export const addProduct = async (req, res) => {
   try {
     const { name, description, price, category, subCategory, sizes, bestseller } = req.body;

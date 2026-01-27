@@ -27,6 +27,8 @@ const ShopContextProvider = (props) => {
   //     });
   // }
 
+  
+
   const addToCart = async (itemId, size) => {
     console.log(" addToCart function called with:", { itemId, size });
 

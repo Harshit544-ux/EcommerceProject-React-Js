@@ -9,6 +9,7 @@ import { addToCartService ,updateCartService,getUserCartService} from "../servic
 };
 
 
+
 // update the cart
 const updateCart=async(req,res)=>{
   const { userId, cartData } = req.body;
