@@ -1,11 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ShopContext } from '../context/ShopContext';
 import Title from '../component/Title';
 import { assets } from '../assets/assets';
 import CartTotal from './CartTotal';
 
 function Cart() {
-  const { products, cartItems, currency, updateQuantity, removeFromCart,getCartAmount } = useContext(ShopContext);
+  const { products, cartItems, currency, updateQuantity, removeFromCart, getCartAmount } = useContext(ShopContext);
+  const navigate = useNavigate();
   const [cartData, setCartData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -20,7 +22,7 @@ function Cart() {
     // Loop through cart items
     for (const itemId in cartItems) {
       // Find product details from products array
-      const product = products.find(p => p.id === itemId);
+      const product = products.find(p => p._id === itemId);
       if (product) {
         // Loop through sizes for this item
         for (const size in cartItems[itemId]) {
@@ -58,7 +60,7 @@ function Cart() {
     }
   };
 
-  
+
   const totalAmount = getCartAmount();
   const totalItems = cartData.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -90,7 +92,10 @@ function Cart() {
             </div>
             <h3 className="text-xl font-medium text-gray-900 mb-2">Your cart is empty</h3>
             <p className="text-gray-500 mb-6">Add some products to get started</p>
-            <button className="bg-black text-white px-6 py-3 rounded-md hover:bg-gray-800 transition">
+            <button
+              onClick={() => navigate('/')}
+              className="bg-black text-white px-6 py-3 rounded-md hover:bg-gray-800 transition"
+            >
               Continue Shopping
             </button>
           </div>
@@ -188,7 +193,7 @@ function Cart() {
             ))}
 
             {/* Cart Summary */}
-            <CartTotal checkoutLink='/placeorder' buttonText='Proceed to checkout'/>
+            <CartTotal checkoutLink='/placeorder' buttonText='Proceed to checkout' />
           </div>
         )}
       </div>

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { backendUrl } from '../App';
- 
-function Login({setToken}) {
+
+function Login({ setToken }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -18,15 +18,15 @@ function Login({setToken}) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),  
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await res.json();
 
-          // ✅ Store token and update parent state
-    localStorage.setItem('admin-token', data.token);
-    setToken(data.token);
-    navigate('/add');
+      // ✅ Store token and update parent state
+      localStorage.setItem('admin-token', data.token);
+      setToken(data.token);
+      navigate('/add');
 
       if (!res.ok) {
         throw new Error(data.message || 'Login failed');
@@ -44,8 +44,8 @@ function Login({setToken}) {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <form 
-        onSubmit={handleSubmit} 
+      <form
+        onSubmit={handleSubmit}
         className="bg-white p-8 rounded-xl shadow-lg w-full max-w-sm space-y-6"
       >
         <div className="text-center">
@@ -56,7 +56,7 @@ function Login({setToken}) {
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-          <input 
+          <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -67,7 +67,7 @@ function Login({setToken}) {
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-          <input 
+          <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -76,7 +76,7 @@ function Login({setToken}) {
           />
         </div>
 
-        <button 
+        <button
           type="submit"
           className="w-full mt-2 py-2 px-2 rounded-md text-white bg-black hover:bg-gray-800 transition"
         >

@@ -4,30 +4,30 @@ import Title from './Title';
 import ProductItem from './ProductItem';
 
 function LatestCollection() {
-    const { products } = useContext(ShopContext)
-    console.log(products);
-    const [latestProducts,setLatestProducts]=useState([]);
+  const { products } = useContext(ShopContext)
+  console.log(products);
+  const [latestProducts, setLatestProducts] = useState([]);
 
-    useEffect(()=>{
-        setLatestProducts(products.slice(0,10));
-    },[products])
+  useEffect(() => {
+    setLatestProducts(products.slice(0, 10));
+  }, [products])
 
-  return (  
+  return (
     <div className='my-10'>
-        <div className='text-center py-8 text-3xl'>
-            <Title text1={'LATEST'} text2={'COLLECTIONS'} />
-            <p className='w-3/4 mx-auto text-xs sm:text-sm md:text-base text-gray-600'>Unlock the latest collections, featuring the best products to enhance your everyday experience.</p>
-        </div>
-         {/* {Rendering product} */}
+      <div className='text-center py-8 text-3xl'>
+        <Title text1={'LATEST'} text2={'COLLECTIONS'} />
+        <p className='w-3/4 mx-auto text-xs sm:text-sm md:text-base text-gray-600'>Unlock the latest collections, featuring the best products to enhance your everyday experience.</p>
+      </div>
+      {/* {Rendering product} */}
       <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6 mt-4 px-10 py-6'>
-        {latestProducts.map((item,index) => (
-          <ProductItem key={index} id={item.id} name={item.name} price={item.price} image={item.images?.[0]} />
+        {latestProducts.map((item, index) => (
+          <ProductItem key={index} id={item._id} name={item.name} price={item.price} image={item.images?.[0]} />
         ))}
       </div>
     </div>
 
-    
+
   )
-} 
+}
 
 export default LatestCollection

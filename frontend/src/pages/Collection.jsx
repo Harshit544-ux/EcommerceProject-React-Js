@@ -5,7 +5,7 @@ import Title from '../component/Title';
 import ProductItem from '../component/ProductItem';
 
 function Collection() {
-  const { products ,search} = useContext(ShopContext)
+  const { products, search } = useContext(ShopContext)
   const [showFilter, setShowFilter] = useState(true);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState([]);
@@ -38,7 +38,7 @@ function Collection() {
 
     // Apply search filter
     if (search) {
-      filtered = filtered.filter(item => 
+      filtered = filtered.filter(item =>
         item.name.toLowerCase().includes(search.toLowerCase()) ||
         item.description.toLowerCase().includes(search.toLowerCase())
       );
@@ -64,7 +64,7 @@ function Collection() {
 
   return (
     <div className='flex flex-col sm:flex-row gap-1  sm:gap-10 pt-10 border-t mx-6 sm:mx-10 lg:mx-12'>
-      
+
       {/* Filter Section */}
       <div className='min-w-60'>
         <p onClick={() => setShowFilter(!showFilter)} className='my-2 text-xl flex items-center cursor-pointer gap-2'>FILTERS
@@ -131,7 +131,7 @@ function Collection() {
               <input
                 type="checkbox"
                 className='w-3'
-                value="Winterwear"  
+                value="Winterwear"
                 checked={selectedSubCategories.includes("Winterwear")}
                 onChange={handleSubCategoryChange}
               />Winter Wear
@@ -139,31 +139,42 @@ function Collection() {
           </div>
         </div>
 
-  
-        </div>
-            {/* {Right side} */}
-        <div className='flex-1'>
-          <div className='flex justify-between text-base sm:text-2xl mb-4'>
-            <Title text1={'ALL'} text2={'COLLECTIONS'}/>
-            {/* {Product Sort} */}
-            <select 
-              className='border-2 border-gray-300 text-sm px-2'
+
+      </div>
+      {/* {Right side} */}
+      <div className='flex-1'>
+        <div className='flex justify-between items-center text-base sm:text-2xl mb-4'>
+          <Title text1={'ALL'} text2={'COLLECTIONS'} />
+          {/* {Product Sort} */}
+          <div className='flex items-center gap-3'>
+            <label className='text-sm text-gray-600 font-medium hidden sm:block'>Sort By:</label>
+            <select
+              className='border border-gray-300 text-sm px-4 py-2.5 rounded-lg bg-white hover:border-gray-500 focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition-all cursor-pointer shadow-sm font-medium text-gray-700'
               value={sortType}
               onChange={(e) => setSortType(e.target.value)}
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E")`,
+                backgroundPosition: 'right 0.5rem center',
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: '1.5em 1.5em',
+                paddingRight: '2.5rem',
+                appearance: 'none'
+              }}
             >
-              <option value="relevant">Sort By: Relevant</option>
-              <option value="low-high">Sort By: Low to High</option>
-              <option value="high-low">Sort By: High to Low</option>
+              <option value="relevant">Relevant</option>
+              <option value="low-high">Price: Low to High</option>
+              <option value="high-low">Price: High to Low</option>
             </select>
-
           </div>
+
+        </div>
 
 
         {/* Map Products */}
         <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6'>
           {
             filterProducts.map((item, index) => (
-              <ProductItem key={index} id={item.id} name={item.name} price={item.price} image={item.images} />
+              <ProductItem key={index} id={item._id} name={item.name} price={item.price} image={item.images} />
             ))
           }
 
