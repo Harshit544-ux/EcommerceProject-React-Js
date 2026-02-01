@@ -12,6 +12,18 @@ function Login({ setToken }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // TODO: Remove this when we have a real API
+    const IS_TEMP_LOGIN = true; //  false karoge toh real API
+
+    if (IS_TEMP_LOGIN) {
+      const dummyToken = "TEMP_ADMIN_TOKEN_123";
+      localStorage.setItem("admin-token", dummyToken);
+      setToken(dummyToken);
+      navigate("/add");
+      return;
+    }
+    //  remove this above code when we have a real API
+
     try {
       const res = await fetch(`${backendUrl}/admin/login`, {
         method: 'POST',
