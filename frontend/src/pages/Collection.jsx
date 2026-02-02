@@ -49,7 +49,7 @@ function Collection() {
       filtered = filtered.filter(item => selectedCategories.includes(item.category));
     }
     if (selectedSubCategories.length > 0) {
-      filtered = filtered.filter(item => selectedSubCategories.includes(item.subCategory));
+      filtered = filtered.filter(item => selectedSubCategories.includes(item.subcategory));
     }
 
     // Apply sorting
@@ -174,7 +174,7 @@ function Collection() {
         <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6'>
           {
             filterProducts.map((item, index) => (
-              <ProductItem key={index} id={item._id} name={item.name} price={item.price} image={item.images} />
+              <ProductItem key={index} id={item.id} name={item.name} price={item.price} image={item.images} />
             ))
           }
 
