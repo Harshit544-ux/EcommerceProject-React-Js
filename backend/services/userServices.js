@@ -1,6 +1,7 @@
 import supabase from "../config/supabase.js";
 import bcrypt from 'bcryptjs';
 
+//create user
 export const createUser = async ({ name, email, password }) => {
   // Step 1: Sign up user in Supabase Auth
   const { data, error } = await supabase.auth.signUp({
@@ -8,10 +9,15 @@ export const createUser = async ({ name, email, password }) => {
     password,
     options: {
       data: { name },
+      emailRedirectTo: undefined, // Disable email confirmation to avoid rate limits
     },
   });
 
   if (error) {
+    // Handle rate limit errors more gracefully
+    if (error.message.includes('rate limit')) {
+      throw new Error("Too many registration attempts. Please try again in a few minutes.");
+    }
     throw new Error("Auth Error: " + error.message);
   }
 
@@ -38,18 +44,20 @@ export const createUser = async ({ name, email, password }) => {
   return user;
 };
 
+//get user
 export const getUser = async (email) => {
   const { data, error } = await supabase
     .from('users')
     .select('*')
-  
+
   if (error && error.code !== 'PGRST116') {
     throw new Error(error.message);
   }
-console.log("data",data)
+  console.log("data", data)
   return data;
 };
 
+//login user
 export const loginUserService = async (email, password) => {
   const { data: user, error } = await supabase
     .from('users')
