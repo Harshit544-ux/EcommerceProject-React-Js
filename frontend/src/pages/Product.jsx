@@ -13,7 +13,7 @@ function Product() {
   const [selectedSize, setSelectedSize] = useState(''); // Changed from sizes to selectedSize
 
   useEffect(() => {
-    const product = products.find(item => item.id === id);
+    const product = products.find(item => item.id == id); // Use == to handle both string and number
     if (product) {
       setProductData(product);
       setImage(product.images[0]);
@@ -81,12 +81,11 @@ function Product() {
             <p>Select Size</p>
             <div className='flex gap-2'>
               {productData.sizes.map((size, index) => (
-                <button 
-                  onClick={() => setSelectedSize(size)} 
-                  key={index} 
-                  className={`border py-2 px-4 bg-gray-100 ${
-                    selectedSize === size ? 'border-black' : ''
-                  }`}
+                <button
+                  onClick={() => setSelectedSize(size)}
+                  key={index}
+                  className={`border py-2 px-4 bg-gray-100 ${selectedSize === size ? 'border-black' : ''
+                    }`}
                 >
                   {size}
                 </button>
@@ -94,7 +93,7 @@ function Product() {
             </div>
 
           </div>
-          <button 
+          <button
             onClick={handleAddToCart}
             className='bg-black text-white py-3 px-8 text-sm active:bg-gray-700 cursor-pointer w-fit rounded'
           >
@@ -130,8 +129,8 @@ function Product() {
         </div>
       </div>
 
-       {/* ----------Display Related Products------------- */}
-       <RelatedProduct category={productData.category} subCategory={productData.subCategory} />
+      {/* ----------Display Related Products------------- */}
+      <RelatedProduct category={productData.category} subCategory={productData.subcategory} />
 
     </div>
   );

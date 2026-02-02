@@ -22,7 +22,7 @@ function Cart() {
     // Loop through cart items
     for (const itemId in cartItems) {
       // Find product details from products array
-      const product = products.find(p => p._id === itemId);
+      const product = products.find(p => p.id === itemId);
       if (product) {
         // Loop through sizes for this item
         for (const size in cartItems[itemId]) {

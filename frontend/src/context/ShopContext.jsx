@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState } from "react";
-import { products as mockdata} from "../assets/assets";
 
 // Create a context for the shop
 export const ShopContext = createContext();
@@ -11,7 +10,7 @@ const ShopContextProvider = (props) => {
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [cartItems, setCartItems] = useState({});
-  const [products, setProducts] = useState(mockdata);
+  const [products, setProducts] = useState([]);
 
   // const addToCart = async (itemId, size) => {
   //     setCartItems(prev => {
@@ -27,7 +26,7 @@ const ShopContextProvider = (props) => {
   //     });
   // }
 
-  
+
 
   const addToCart = async (itemId, size) => {
     console.log(" addToCart function called with:", { itemId, size });
@@ -114,7 +113,7 @@ const ShopContextProvider = (props) => {
   const getCartAmount = () => {
     let total = 0;
     for (const itemId in cartItems) {
-      const product = products.find(p => p._id === itemId);
+      const product = products.find(p => p.id === itemId);
       if (!product) continue;
 
       for (const size in cartItems[itemId]) {
