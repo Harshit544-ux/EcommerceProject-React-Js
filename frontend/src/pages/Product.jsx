@@ -108,10 +108,6 @@ function Product() {
 
         </div>
 
-
-
-
-
       </div>
 
       {/* --------Description & Review Section----------- */}

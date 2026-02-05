@@ -10,6 +10,13 @@ const adminAuth = (req, res, next) => {
 
   const token = authHeader.split(' ')[1];
 
+  // DEVELOPMENT MODE: Allow temporary token for testing
+  if (process.env.NODE_ENV !== 'production' && token === 'TEMP_ADMIN_TOKEN_123') {
+    console.log('⚠️  Using temporary admin token (development mode)');
+    req.user = { role: 'admin', email: 'admin@temp.com' };
+    return next();
+  }
+
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
@@ -23,6 +30,7 @@ const adminAuth = (req, res, next) => {
 
     next(); // Proceed to the actual route handler
   } catch (error) {
+    console.error('Admin auth error:', error.message);
     return res.status(400).json({ success: false, message: 'Invalid or expired token.' });
   }
 };

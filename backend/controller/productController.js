@@ -3,9 +3,9 @@ import { v2 as cloudinary } from 'cloudinary';
 import { getAllProduct, createProduct, deleteProductById, getProductById, getBestsellerProducts, getLatestProducts } from "../services/productService.js"
 
 export const getProducts = async (req, res) => {
-    const { data, error } = await getAllProduct();
-    if (error) return res.status(500).json({ error: error.message });
-    res.json(data);
+  const { data, error } = await getAllProduct();
+  if (error) return res.status(500).json({ error: error.message });
+  res.json(data);
 };
 
 
@@ -34,7 +34,7 @@ export const addProduct = async (req, res) => {
             }
           }
         );
-        
+
         stream.end(file.buffer);
       });
     };
@@ -93,10 +93,10 @@ export const addProduct = async (req, res) => {
 
 //  DELETE /products/:id - Remove product by ID
 export const removeProduct = async (req, res) => {
-    const { id } = req.params;
-    const { data, error } = await deleteProductById(id);
-    if (error) return res.status(500).json({ error: error.message });
-    res.json({ success: true, message: "Product removed", data });
+  const { id } = req.params;
+  const { data, error } = await deleteProductById(id);
+  if (error) return res.status(500).json({ error: error.message });
+  res.json({ success: true, message: "Product removed", data });
 };
 
 //  GET /products/:id - Get single product by ID
@@ -136,7 +136,7 @@ export const updateProduct = async (req, res) => {
             }
           }
         );
-        
+
         stream.end(file.buffer);
       });
     };
@@ -195,40 +195,40 @@ export const updateProduct = async (req, res) => {
 
 // GET /products/bestsellers - Get bestseller products
 export const getBestsellers = async (req, res) => {
-    const { data, error } = await getBestsellerProducts();
-    if (error) return res.status(500).json({ error: error.message });
-    res.json(data);
+  const { data, error } = await getBestsellerProducts();
+  if (error) return res.status(500).json({ error: error.message });
+  res.json(data);
 };
 
 // GET /products/latest - Get latest products
 export const getLatest = async (req, res) => {
-    const { data, error } = await getLatestProducts();
-    if (error) return res.status(500).json({ error: error.message });
-    res.json(data);
+  const { data, error } = await getLatestProducts();
+  if (error) return res.status(500).json({ error: error.message });
+  res.json(data);
 };
 
 // GET /products/search - Search products
 export const searchProducts = async (req, res) => {
   try {
     const { q, category, subcategory, minPrice, maxPrice, bestseller } = req.query;
-    
+
     let query = supabase.from('products').select('*');
-    
+
     // Text search
     if (q) {
       query = query.or(`name.ilike.%${q}%,description.ilike.%${q}%`);
     }
-    
+
     // Category filter
     if (category) {
       query = query.eq('category', category);
     }
-    
+
     // Subcategory filter
     if (subcategory) {
       query = query.eq('subcategory', subcategory);
     }
-    
+
     // Price range filter
     if (minPrice) {
       query = query.gte('price', parseFloat(minPrice));
@@ -236,12 +236,12 @@ export const searchProducts = async (req, res) => {
     if (maxPrice) {
       query = query.lte('price', parseFloat(maxPrice));
     }
-    
+
     // Bestseller filter
     if (bestseller !== undefined) {
       query = query.eq('bestseller', bestseller === 'true');
     }
-    
+
     const { data, error } = await query;
     if (error) return res.status(500).json({ error: error.message });
     res.json(data);
@@ -258,9 +258,9 @@ export const getCategories = async (req, res) => {
       .from('products')
       .select('category, subcategory')
       .order('category');
-    
+
     if (error) return res.status(500).json({ error: error.message });
-    
+
     // Group by category and subcategory
     const categories = {};
     data.forEach(item => {
@@ -271,7 +271,7 @@ export const getCategories = async (req, res) => {
         categories[item.category].push(item.subcategory);
       }
     });
-    
+
     res.json(categories);
   } catch (err) {
     console.error('Error getting categories:', err);
