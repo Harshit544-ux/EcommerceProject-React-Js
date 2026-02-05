@@ -3,8 +3,26 @@ import supabase from "../config/supabase.js";
 // Get all products
 export const getAllProduct = async () => {
   const { data, error } = await supabase.from('products').select('*');
-  console.log(data);
-  return { data, error };
+
+  // Debug logging
+  if (data && data.length > 0) {
+    console.log('Sample product from DB:', {
+      id: data[0].id,
+      name: data[0].name,
+      images: data[0].images,
+      imagesType: typeof data[0].images,
+      imagesIsArray: Array.isArray(data[0].images)
+    });
+  }
+
+  // Ensure images field is always an array
+  const processedData = data?.map(product => ({
+    ...product,
+    images: Array.isArray(product.images) ? product.images :
+      (product.images ? [product.images] : [])
+  }));
+
+  return { data: processedData, error };
 };
 
 //  Create a new product
@@ -49,13 +67,9 @@ export const getProductsByCategory = async (category) => {
 // Get bestseller products
 
 export const getBestsellerProducts = async () => {
-
   const { data, error } = await supabase
-
     .from('products')
-
     .select('*')
-
     .eq('bestseller', true);
 
   return { data, error };
@@ -67,15 +81,10 @@ export const getBestsellerProducts = async () => {
 // Get latest products
 
 export const getLatestProducts = async () => {
-
   const { data, error } = await supabase
-
     .from('products')
-
     .select('*')
-
     .order('created_at', { ascending: false })
-
     .limit(10);
 
   return { data, error };
