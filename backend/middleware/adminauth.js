@@ -1,37 +1,31 @@
 import jwt from 'jsonwebtoken';
 
 const adminAuth = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-
-  // Check if Authorization header is present
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(401).json({ success: false, message: 'Access denied. No token provided.' });
-  }
-
-  const token = authHeader.split(' ')[1];
-
-  // DEVELOPMENT MODE: Allow temporary token for testing
-  if (process.env.NODE_ENV !== 'production' && token === 'TEMP_ADMIN_TOKEN_123') {
-    console.log('⚠️  Using temporary admin token (development mode)');
-    req.user = { role: 'admin', email: 'admin@temp.com' };
-    return next();
-  }
-
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    // Get token from Authorization header (Bearer token format)
+    const authHeader = req.headers.authorization;
 
-    // Check if user is an admin
-    if (decoded.role !== 'admin') {
-      return res.status(403).json({ success: false, message: 'Access denied. Admins only.' });
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ success: false, message: "Not Authorized. Please login again." });
     }
 
-    // Attach user data to request (optional)
-    req.user = decoded;
+    // Extract token from "Bearer <token>"
+    const token = authHeader.split(' ')[1];
 
-    next(); // Proceed to the actual route handler
+    // Verify and decode the JWT token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    // Check if the decoded token has admin role
+    if (decoded.role !== 'admin') {
+      return res.status(403).json({ success: false, message: "Access denied. Admins only." });
+    }
+
+    // Attach decoded user info to request
+    req.user = decoded;
+    next();
   } catch (error) {
     console.error('Admin auth error:', error.message);
-    return res.status(400).json({ success: false, message: 'Invalid or expired token.' });
+    return res.status(401).json({ success: false, message: "Invalid or expired token. Please login again." });
   }
 };
 

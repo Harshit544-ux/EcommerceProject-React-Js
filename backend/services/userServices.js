@@ -3,45 +3,37 @@ import bcrypt from 'bcryptjs';
 
 //create user
 export const createUser = async ({ name, email, password }) => {
-  // Step 1: Sign up user in Supabase Auth
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      data: { name },
-      emailRedirectTo: undefined, // Disable email confirmation to avoid rate limits
-    },
-  });
+  // Step 1: Check if user already exists
+  const { data: existingUser, error: checkError } = await supabase
+    .from('users')
+    .select('email')
+    .eq('email', email)
+    .single();
 
-  if (error) {
-    // Handle rate limit errors more gracefully
-    if (error.message.includes('rate limit')) {
-      throw new Error("Too many registration attempts. Please try again in a few minutes.");
-    }
-    throw new Error("Auth Error: " + error.message);
+  if (existingUser) {
+    throw new Error("User already registered");
   }
 
-  const user = data.user;
-
-  // Step 2: Hash the password (for custom table only)
+  // Step 2: Hash the password
   const hashedPassword = await bcrypt.hash(password, 10); // 10 salt rounds
 
-  // Step 3: Insert into custom users table
-  const { error: insertError } = await supabase
+  // Step 3: Insert into custom users table 
+  const { data: newUser, error: insertError } = await supabase
     .from('users')
     .insert({
-      id: user.id,
       name,
       email,
       password: hashedPassword,
       created_at: new Date(),
-    });
+    })
+    .select()
+    .single();
 
   if (insertError) {
     throw new Error("DB Error: " + insertError.message);
   }
 
-  return user;
+  return newUser;
 };
 
 //get user
