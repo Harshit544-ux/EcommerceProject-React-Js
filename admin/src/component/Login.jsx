@@ -12,18 +12,8 @@ function Login({ setToken }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // TODO: Remove this when we have a real API
-    const IS_TEMP_LOGIN = true; //  false karoge toh real API
 
-    if (IS_TEMP_LOGIN) {
-      const dummyToken = "TEMP_ADMIN_TOKEN_123";
-      localStorage.setItem("admin-token", dummyToken);
-      setToken(dummyToken);
-      navigate("/add");
-      return;
-    }
-    //  remove this above code when we have a real API
-
+    //api call for login
     try {
       const res = await fetch(`${backendUrl}/admin/login`, {
         method: 'POST',
@@ -35,18 +25,15 @@ function Login({ setToken }) {
 
       const data = await res.json();
 
+      if (!res.ok) {
+        throw new Error(data.error || data.message || 'Login failed');
+      }
+
       // ✅ Store token and update parent state
       localStorage.setItem('admin-token', data.token);
       setToken(data.token);
-      navigate('/add');
-
-      if (!res.ok) {
-        throw new Error(data.message || 'Login failed');
-      }
-
       console.log('Login successful:', data);
-      // ✅ You can redirect or store token here
-      // localStorage.setItem('token', data.token);
+      navigate('/add');
 
     } catch (err) {
       setError(err.message);

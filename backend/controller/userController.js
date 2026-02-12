@@ -5,6 +5,7 @@ import {
 import { generateToken } from '../utils/jwt.js';
 import jwt from 'jsonwebtoken';
 
+
 export const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -19,11 +20,12 @@ export const registerUser = async (req, res) => {
 
     // Generate JWT token
     const token = generateToken(user.id); // use `user.id` or `user._id` depending on your DB
+    console.log(token)
 
-    return res.status(201).json({ success: true, token });
+    return res.status(201).json({ success: true, token, user: { id: user.id, name: user.name, email: user.email } });
   } catch (error) {
     if (error.message.includes('User already registered')) {
-        return res.status(409).json({ success: false, message: 'User already exists' });
+      return res.status(409).json({ success: false, message: 'User already exists' });
     }
     console.error('Register error:', error);
     return res.status(500).json({ success: false, message: 'Server error' });
@@ -44,6 +46,7 @@ export const loginUser = async (req, res) => {
     }
 
     const token = generateToken(user.id);
+    console.log(token)
 
     return res.status(200).json({ success: true, token, user });
   } catch (error) {
