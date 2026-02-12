@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
+
 
 function Login() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [currentState, setCurrentState] = useState('Sign Up');
   const [formData, setFormData] = useState({
     name: '',
@@ -20,42 +22,51 @@ function Login() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  const endpoint =
-    currentState === 'Login'
-      ? 'http://localhost:4000/login'
-      : 'http://localhost:4000/register';
+  // Redirect user to home if already authenticated (token exists)
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/");
+    }
+  }, []);
 
-  try {
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const endpoint =
+      currentState === 'Login'
+        ? 'http://localhost:4000/login'
+        : 'http://localhost:4000/register';
 
-    const data = await response.json();
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
 
-    if (!response.ok) {
-      throw new Error(data.message || 'Something went wrong');
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Something went wrong');
+      }
+
+      // ✅ Save token
+      if (data.success && data.token) {
+        localStorage.setItem('token', data.token);
+        navigate('/')
+        console.log("Token saved:", data.token);
+      }
+
+      console.log(`${currentState} success:`, data);
+      toast.success(`${currentState} successful`);
+    } catch (error) {
+      console.error(`${currentState} error:`, error.message);
+      toast.error(error.message);
     }
 
-    // ✅ Save token
-    if (data.success && data.token) {
-      localStorage.setItem('token', data.token);
-      navigate('/')
-      console.log("Token saved:", data.token);
-    }
-
-    console.log(`${currentState} success:`, data);
-    toast.success(`${currentState} successful`);
-  } catch (error) {
-    console.error(`${currentState} error:`, error.message);
-    toast.error(error.message);
-  }
-};
+  };
 
 
   return (

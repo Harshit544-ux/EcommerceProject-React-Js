@@ -125,23 +125,23 @@ const ShopContextProvider = (props) => {
     return total;
   };
 
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch("http://localhost:4000/products", {
+        cache: "no-store"
+      });
+
+      const data = await response.json();
+      console.log("Fetched products:", data);
+      setProducts(data);
+
+    } catch (error) {
+      console.error("Failed to fetch products:", error);
+    }
+  };
+
+
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch("http://localhost:4000/products", {
-          cache: "no-store"
-        })
-
-        console.log("Fetch products response:", response);
-        console.log(response)
-        const data = await response.json();
-        console.log("Fetched products data:", data);
-        setProducts(data);
-      } catch (error) {
-        console.error("Failed to fetch products:", error);
-      }
-    };
-
     fetchProducts();
   }, []);
 
