@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { assets } from "../assets/admin_assets/assets";
 import { backendUrl } from '../App';
+import { toast } from 'react-toastify';
 
 function Add() {
   const [images, setImages] = useState([null, null, null, null]); // for preview
@@ -64,7 +65,7 @@ function Add() {
       const data = await response.json();
 
       if (response.ok) {
-        alert("Product added successfully");
+        toast.success("Product added successfully");
 
         // Reset form
         setProductName('');
@@ -77,11 +78,11 @@ function Add() {
         setImages([null, null, null, null]);
         setImageFiles([null, null, null, null]);
       } else {
-        alert(data.message || "Something went wrong");
+        toast.error(data.message || "Something went wrong");
       }
     } catch (error) {
       console.error("Error adding product:", error);
-      alert("Failed to add product");
+      toast.error("Failed to add product");
     }
   };
 

@@ -4,13 +4,14 @@ import { assets } from "../assets/admin_assets/assets";
 function Navbar({ setToken }) {
   const handleLogout = () => {
     localStorage.removeItem('admin-token'); // optional: clear token from localStorage
-    setToken(''); // ✅ update App state
+    setToken(''); //  update App state
+    toast.error('Logged out successfully');
   };
 
   return (
-    <div className='flex items-center py-2 px-[4%] justify-between'>  
+    <div className='flex items-center py-2 px-[4%] justify-between'>
       <img className='w-[max(10%,80px)]' src={assets.logo} alt="logo" />
-      <button 
+      <button
         onClick={handleLogout}
         className='bg-gray-800 text-white px-5 py-2 sm:px-7 sm:py-2 rounded-full text-xs sm:text-sm'
       >
