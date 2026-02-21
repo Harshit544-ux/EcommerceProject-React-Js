@@ -14,7 +14,7 @@ const ShopContextProvider = (props) => {
 
   /* ================= ADD TO CART ================= */
   const addToCart = async (itemId, size) => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("auth-token");
 
     if (!token) {
       alert("Please login first");
@@ -60,7 +60,7 @@ const ShopContextProvider = (props) => {
 
   /* ================= LOAD USER CART ================= */
   const loadUserCart = async () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("auth-token");
     if (!token) return;
 
     try {
