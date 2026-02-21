@@ -24,7 +24,7 @@ function Login() {
 
   // Redirect user to home if already authenticated (token exists)
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("auth-token");
     if (token) {
       navigate("/");
     }
@@ -49,12 +49,14 @@ function Login() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Something went wrong');
+        toast.error(data.message || 'Something went wrong');
+        return;
       }
 
       // ✅ Save token
       if (data.success && data.token) {
-        localStorage.setItem('token', data.token);
+        localStorage.setItem('auth-token', data.token);
+        window.dispatchEvent(new Event('authChange'));
         navigate('/')
         console.log("Token saved:", data.token);
       }

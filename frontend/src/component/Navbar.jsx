@@ -1,17 +1,35 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { assets } from '../assets/assets.js'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { ShopContext } from '../context/ShopContext.jsx';
+import { toast } from 'react-toastify';
 
 
 function Navbar() {
     const navigate=useNavigate();
     const {setShowSearch,getCartCount} = useContext(ShopContext);
-     const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
-        const handleLogout = () => {
-        localStorage.removeItem("token");
+    const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("auth-token"));
+
+    useEffect(() => {
+        const handleAuthChange = () => {
+            setIsLoggedIn(!!localStorage.getItem("auth-token"));
+        };
+        window.addEventListener('storage', handleAuthChange);
+        window.addEventListener('authChange', handleAuthChange);
+        return () => {
+            window.removeEventListener('storage', handleAuthChange);
+            window.removeEventListener('authChange', handleAuthChange);
+        };
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem("auth-token");
         setIsLoggedIn(false);
+        window.dispatchEvent(new Event('authChange'));
         navigate('/');
+        toast.success("Logged out successfully!", {
+            position: "bottom-right"
+        });
     };
 
     return (
@@ -41,16 +59,20 @@ function Navbar() {
                <img onClick={() => setShowSearch(true)} src={assets.search_icon} alt="search" className='w-5 cursor-pointer' />
 
                 <div className="relative group">
-                   <Link to={'/login'}><img src={assets.profile_icon} alt="profile" className="w-5 cursor-pointer" /></Link> 
-                    
-                    <div className="hidden group-hover:block absolute right-0 pt-4 bg-slate-100  rounded-md shadow-lg z-10">
-                        <div className="flex flex-col gap-2 px-4 py-2 w-36 text-gray-500 rounded">
-                            <p className="hover:text-black cursor-pointer">My Profile</p>
-                            <p className="hover:text-black cursor-pointer">Orders</p>
-                            <p className="hover:text-black cursor-pointer" onClick={handleLogout}>Logout</p>
-                        </div>
-                    </div>
-
+                    {isLoggedIn ? (
+                        <>
+                            <img src={assets.profile_icon} alt="profile" className="w-5 cursor-pointer" />
+                            <div className="absolute right-0 pt-4 bg-slate-100 rounded-md shadow-lg z-10 hidden group-hover:block">
+                                <div className="flex flex-col gap-2 px-4 py-2 w-36 text-gray-500 rounded">
+                                    <p className="hover:text-black cursor-pointer">My Profile</p>
+                                    <p className="hover:text-black cursor-pointer">Orders</p>
+                                    <p className="hover:text-black cursor-pointer" onClick={handleLogout}>Logout</p>
+                                </div>
+                            </div>
+                        </>
+                    ) : (
+                        <Link to={'/login'}><img src={assets.profile_icon} alt="profile" className="w-5 cursor-pointer" /></Link>
+                    )}
                 </div>
                 <div className="relative">
                     <Link to="/cart">
